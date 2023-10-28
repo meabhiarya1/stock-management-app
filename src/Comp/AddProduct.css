@@ -1,0 +1,34 @@
+.form-div {
+    display: flex;
+    flex-direction: row;
+    font-size: small;
+    max-width: 20%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.form {
+    margin-left:3rem;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.size {
+    width: 70%;
+    margin-bottom: 5px;
+    text-align: center;
+    display: inline;
+    margin-left: 1rem;
+}
+.thick {
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.weight {
+    width: 35%;
+    display: inline-flex;
+    margin-left: 0.5rem;
+    text-align: center;
+}

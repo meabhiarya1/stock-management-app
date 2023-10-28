@@ -1,0 +1,13 @@
+.table {
+  display: inline;
+  max-width: 80%;
+  margin-left: 75px;
+  margin-top: -100px;
+  position: static;
+  font-size: small;
+}
+
+.button {
+  margin: 3px;
+  font-size: x-small;
+}
