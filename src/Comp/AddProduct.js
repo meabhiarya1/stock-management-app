@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "./AddProduct.css";
 import DisplayProducts from "./DisplayProducts";
 
-const AddProduct = () => {
+const AddProduct = ({value}) => {
   let initialState = [];
   const [products, setProducts] = useState(initialState);
 
@@ -103,7 +103,7 @@ const AddProduct = () => {
           </Button>
         </Form>
       </div>
-        <DisplayProducts products={products} />
+        <DisplayProducts products={products}/>
     </>
   );
 };
