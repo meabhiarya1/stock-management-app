@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "./DisplayProducts.css";
-import { MDBIcon } from 'mdb-react-ui-kit';
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const DisplayProducts = ({ products }) => {
   let initialState = [];
@@ -9,6 +10,10 @@ const DisplayProducts = ({ products }) => {
 
   const increQty = (event) => {
     const indexOfArray = event.target.value;
+
+    if (products[indexOfArray].quantity == "Out of Stock") {
+      products[indexOfArray].quantity = 0;
+    }
     products[indexOfArray].quantity =
       Number(products[indexOfArray].quantity) + 1;
     setProducts([...products]);
@@ -16,8 +21,11 @@ const DisplayProducts = ({ products }) => {
 
   const decreQty = (event) => {
     const indexOfArray = event.target.value;
-    if (products[indexOfArray].quantity <= 0) {
-      products[indexOfArray].quantity = 0;
+    if (
+      products[indexOfArray].quantity <= 1 ||
+      products[indexOfArray].quantity === "Out of Stock"
+    ) {
+      products[indexOfArray].quantity = "Out of Stock";
     } else {
       products[indexOfArray].quantity =
         Number(products[indexOfArray].quantity) - 1;
@@ -25,17 +33,36 @@ const DisplayProducts = ({ products }) => {
     setProducts([...products]);
   };
 
-  const editQty = () =>{
+  const editQty = (event) => {};
 
-  }
-
-  const delQty = () =>{
-
-  }
+  const delQty = (event) => {
+    const indexOfArray = event.target.value;
+    // console.log(products, indexOfArray);
+    
+    const updatedItems = products.filter((elem, index)=>{
+      // console.log(index, Number(indexOfArray));
+      return index !== Number(indexOfArray)
+    })
+    console.log(updatedItems)
+    // setProducts(updatedItems);
+  };
 
   return (
+    <>
+      {/* search box */}
       <div className="table">
-        <Table striped bordered hover variant="dark" >
+        <div>
+          <form>
+            <input
+              type="name"
+              name="text"
+              placeholder="Search Here !!!!"
+              class="filter-search"
+            />
+          </form>
+        </div>
+
+        <Table striped bordered hover variant="dark" responsive="sm">
           <thead>
             <tr>
               <th>Index</th>
@@ -46,7 +73,15 @@ const DisplayProducts = ({ products }) => {
               <th>Thickness</th>
               <th>Kilo</th>
               <th>Grams</th>
-              <th>Quantity</th>
+              <th>
+                <DropdownButton id="dropdown-basic-button" title="Quantity">
+                  <Dropdown.Item href="Out of Stock">
+                    Out of Stock
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Less then 1</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Less then 5</Dropdown.Item>
+                </DropdownButton>
+              </th>
               <th>Options</th>
             </tr>
           </thead>
@@ -54,7 +89,7 @@ const DisplayProducts = ({ products }) => {
             {products.map((item, index) => {
               return (
                 <tr key={index}>
-                  <td>{index+1}</td>
+                  <td>{index + 1}</td>
                   <td>{item.product_name}</td>
                   <td>{item.price}</td>
                   <td>{item.height}</td>
@@ -72,6 +107,7 @@ const DisplayProducts = ({ products }) => {
                     >
                       +
                     </Button>
+
                     <Button
                       variant="danger"
                       onClick={(event) => decreQty(event)}
@@ -91,12 +127,12 @@ const DisplayProducts = ({ products }) => {
                     </Button>
 
                     <Button
-                      variant="primary"
+                      variant="danger"
                       onClick={(event) => delQty(event)}
                       value={index}
                       className="button"
                     >
-                      <MDBIcon fas icon="trash" />
+                      Delete
                     </Button>
                   </td>
                 </tr>
@@ -105,6 +141,7 @@ const DisplayProducts = ({ products }) => {
           </tbody>
         </Table>
       </div>
+    </>
   );
 };
 
