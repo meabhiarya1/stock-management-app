@@ -1,15 +1,10 @@
-.form-div {
-    display: flex;
-    flex-direction: row;
-    font-size: small;
-    max-width: 20%;
-    text-align: center;
+.modal-button {
     margin-top: 1rem;
 }
 
 .form {
-    margin-left:3rem;
-    align-items: flex-start;
+    margin-left:5px;
+    /* align-items: flex-start; */
     text-align: center;
 }
 
