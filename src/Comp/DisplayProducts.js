@@ -1,49 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "./DisplayProducts.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
-const DisplayProducts = ({ products }) => {
-
-  const [product, setProducts] = useState([]);
-
-  useEffect(() => {
-    setProducts([...products])
-  },[products]);
-  // console.log(product)
-  const increQty = (event) => {
-    const indexOfArray = event.target.value;
-
-    if (product[indexOfArray].quantity == "Out of Stock") {
-      product[indexOfArray].quantity = 0;
-    }
-    product[indexOfArray].quantity = Number(product[indexOfArray].quantity) + 1;
-    setProducts([...product]);
-  };
-
-  const decreQty = (event) => {
-    const indexOfArray = event.target.value;
-    if (
-      product[indexOfArray].quantity <= 1 ||
-      product[indexOfArray].quantity === "Out of Stock"
-    ) {
-      product[indexOfArray].quantity = "Out of Stock";
-    } else {
-      product[indexOfArray].quantity =
-        Number(product[indexOfArray].quantity) - 1;
-    }
-    setProducts([...product]);
-  };
-
-  const editQty = (event) => {};
-
-  const delQty = (event) => {
-    const indexOfArray = event.target.value;
-    product.splice(indexOfArray,1)
-    setProducts([...product])
-  };
-
+const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty }) => {
   return (
     <>
       {/* search box */}
@@ -75,15 +36,15 @@ const DisplayProducts = ({ products }) => {
                   <Dropdown.Item href="Out of Stock">
                     Out of Stock
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Less then 1</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Less then 5</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Less then 5</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Less then 10</Dropdown.Item>
                 </DropdownButton>
               </th>
               <th>Options</th>
             </tr>
           </thead>
           <tbody>
-            {product.map((item, index) => {
+            {products.map((item, index) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
