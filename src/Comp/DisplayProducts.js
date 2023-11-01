@@ -1,50 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "./DisplayProducts.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 const DisplayProducts = ({ products }) => {
-  let initialState = [];
-  const [product, setProducts] = useState(initialState);
 
+  const [product, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts([...products])
+  },[products]);
+  // console.log(product)
   const increQty = (event) => {
     const indexOfArray = event.target.value;
 
-    if (products[indexOfArray].quantity == "Out of Stock") {
-      products[indexOfArray].quantity = 0;
+    if (product[indexOfArray].quantity == "Out of Stock") {
+      product[indexOfArray].quantity = 0;
     }
-    products[indexOfArray].quantity =
-      Number(products[indexOfArray].quantity) + 1;
-    setProducts([...products]);
+    product[indexOfArray].quantity = Number(product[indexOfArray].quantity) + 1;
+    setProducts([...product]);
   };
 
   const decreQty = (event) => {
     const indexOfArray = event.target.value;
     if (
-      products[indexOfArray].quantity <= 1 ||
-      products[indexOfArray].quantity === "Out of Stock"
+      product[indexOfArray].quantity <= 1 ||
+      product[indexOfArray].quantity === "Out of Stock"
     ) {
-      products[indexOfArray].quantity = "Out of Stock";
+      product[indexOfArray].quantity = "Out of Stock";
     } else {
-      products[indexOfArray].quantity =
-        Number(products[indexOfArray].quantity) - 1;
+      product[indexOfArray].quantity =
+        Number(product[indexOfArray].quantity) - 1;
     }
-    setProducts([...products]);
+    setProducts([...product]);
   };
 
   const editQty = (event) => {};
 
   const delQty = (event) => {
     const indexOfArray = event.target.value;
-    // console.log(products, indexOfArray);
-    
-    const updatedItems = products.filter((elem, index)=>{
-      // console.log(index, Number(indexOfArray));
-      return index !== Number(indexOfArray)
-    })
-    console.log(updatedItems)
-    // setProducts(updatedItems);
+    product.splice(indexOfArray,1)
+    setProducts([...product])
   };
 
   return (
@@ -86,7 +83,7 @@ const DisplayProducts = ({ products }) => {
             </tr>
           </thead>
           <tbody>
-            {products.map((item, index) => {
+            {product.map((item, index) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
