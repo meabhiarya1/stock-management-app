@@ -9,9 +9,14 @@ function App() {
   const [products, setProducts] = useState([]);
   const [updatedItems, setUpdatedItems] = useState([]);
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setEditEvent(null);
+    setProductToEdit(null);
+  };
   const handleShow = () => setShow(true);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [editEvent, setEditEvent] = useState(null);
 
   useEffect(() => {
     setUpdatedItems(products);
@@ -66,7 +71,7 @@ function App() {
 
   const editQty = (event) => {
     setProductToEdit(products[event.target.value]);
-    delQty(event);
+    setEditEvent(event);
     handleShow();
   };
 
@@ -90,6 +95,8 @@ function App() {
           handleClose={handleClose}
           show={show}
           AddProducts={AddProducts}
+          delQty={delQty}
+          editEvent={editEvent}
         />
 
         <DisplayProducts
