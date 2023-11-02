@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "./AddProduct.css";
 import Modal from "react-bootstrap/Modal";
 
-function AddProduct({ productToEdit, AddProducts, handleClose, show }) {
+function AddProduct({ productToEdit, AddProducts, handleClose, show, delQty, editEvent }) {
   const nameRef = useRef();
   const priceRef = useRef();
   const heightRef = useRef();
@@ -40,6 +40,9 @@ function AddProduct({ productToEdit, AddProducts, handleClose, show }) {
       grams: formData.grams.value,
       quantity: formData.quantity.value,
     };
+    if (editEvent) {
+      delQty(editEvent);
+    }
     AddProducts(newProduct);
     setNull();
   };
