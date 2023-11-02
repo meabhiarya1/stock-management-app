@@ -1,21 +1,36 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; //React Bootstrap
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddProduct from "./Comp/AddProduct";
 import DisplayProducts from "./Comp/DisplayProducts";
 
 function App() {
-
   const [products, setProducts] = useState([]);
+  const [updatedItems, setUpdatedItems] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [productToEdit, setProductToEdit] = useState(null);
 
+  useEffect(() => {
+    setUpdatedItems(products);
+  }, [products]);
+
   const AddProducts = (newProduct) => {
     products.push(newProduct);
     setProducts([...products]);
+  };
+
+  // to search the product
+
+  const searchProducts = (event) => {
+    const filterProducts = products.filter((item, index) => {
+      return item.product_name
+        .toUpperCase()
+        .includes(event.target.value.toUpperCase());
+    });
+    setUpdatedItems(filterProducts);
   };
 
   // to increment the quantity
@@ -31,7 +46,7 @@ function App() {
     setProducts([...products]);
   };
 
-   // to decrement the quantity
+  // to decrement the quantity
 
   const decreQty = (event) => {
     const indexOfArray = event.target.value;
@@ -55,7 +70,7 @@ function App() {
     handleShow();
   };
 
-  //to delete the product 
+  //to delete the product
 
   const delQty = (event) => {
     const indexOfArray = event.target.value;
@@ -69,18 +84,21 @@ function App() {
         <Button variant="primary" onClick={handleShow} className="modal-button">
           Add New Product to Inventory
         </Button>
+
         <AddProduct
           productToEdit={productToEdit}
           handleClose={handleClose}
           show={show}
           AddProducts={AddProducts}
         />
+
         <DisplayProducts
-          products={products}
+          products={updatedItems}
           increQty={increQty}
           decreQty={decreQty}
           editQty={editQty}
           delQty={delQty}
+          searchProducts={searchProducts}
         />
       </header>
     </div>
@@ -88,4 +106,3 @@ function App() {
 }
 
 export default App;
-
