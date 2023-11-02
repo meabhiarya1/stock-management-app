@@ -31,7 +31,7 @@ function AddProduct({ productToEdit, AddProducts, handleClose, show }) {
     e.preventDefault();
     const formData = e.target;
     const newProduct = {
-      product_name: formData.product_name.value,
+      product_name: formData.product_name.value.toUpperCase(),
       price: formData.price.value,
       height: formData.height.value,
       width: formData.width.value,
@@ -41,6 +41,18 @@ function AddProduct({ productToEdit, AddProducts, handleClose, show }) {
       quantity: formData.quantity.value,
     };
     AddProducts(newProduct);
+    setNull();
+  };
+
+  const setNull = () => {
+    nameRef.current.value = null;
+    priceRef.current.value = null;
+    heightRef.current.value = null;
+    widthRef.current.value = null;
+    thicknessRef.current.value = null;
+    kiloRef.current.value = null;
+    gramsRef.current.value = null;
+    quantityRef.current.value = null;
   };
 
   return (
@@ -117,8 +129,8 @@ function AddProduct({ productToEdit, AddProducts, handleClose, show }) {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Quantity</Form.Label>
+            <Form.Group className="mb-3">
+              <Form.Label >Quantity</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Quantity"
