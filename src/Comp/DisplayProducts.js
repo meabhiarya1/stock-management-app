@@ -4,7 +4,7 @@ import "./DisplayProducts.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
-const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty }) => {
+const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty, searchProducts }) => {
   return (
     <>
       {/* search box */}
@@ -16,11 +16,12 @@ const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty }) => {
               name="text"
               placeholder="Search Here !!!!"
               class="filter-search"
+              onChange={(event)=> searchProducts(event)}
             />
           </form>
         </div>
 
-        <Table striped bordered hover variant="dark" responsive="sm">
+        <Table striped bordered hover variant="dark" className="table">
           <thead>
             <tr>
               <th>Index</th>
@@ -32,7 +33,8 @@ const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty }) => {
               <th>Kilo</th>
               <th>Grams</th>
               <th>
-                <DropdownButton id="dropdown-basic-button" title="Quantity">
+                
+                <DropdownButton id="dropdown-basic-button" title="Quantity" variant="secondary" bg="dark">
                   <Dropdown.Item href="Out of Stock">
                     Out of Stock
                   </Dropdown.Item>
