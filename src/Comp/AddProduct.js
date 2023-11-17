@@ -32,13 +32,13 @@ function AddProduct({ productToEdit, AddProducts, handleClose, show, delQty, edi
     const formData = e.target;
     const newProduct = {
       product_name: formData.product_name.value.toUpperCase(),
-      price: formData.price.value,
-      height: formData.height.value,
-      width: formData.width.value,
-      thick: formData.thick.value,
-      kilo: formData.kilo.value,
-      grams: formData.grams.value,
-      quantity: formData.quantity.value,
+      price: Math.abs(formData.price.value),
+      height: Math.abs(formData.height.value),
+      width: Math.abs(formData.width.value),
+      thick: Math.abs(formData.thick.value),
+      kilo: Math.abs(formData.kilo.value),
+      grams: Math.abs(formData.grams.value),
+      quantity: Math.abs(formData.quantity.value),
     };
     if (editEvent) {
       delQty(editEvent);
@@ -81,7 +81,7 @@ function AddProduct({ productToEdit, AddProducts, handleClose, show, delQty, edi
               <Form.Label>Price</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Price per piece"
+                placeholder="Price per piece or per packet"
                 name="price"
                 ref={priceRef}
               />
@@ -92,14 +92,14 @@ function AddProduct({ productToEdit, AddProducts, handleClose, show, delQty, edi
               <br></br>
               <Form.Control
                 type="number"
-                placeholder="Height in feet"
+                placeholder="Height in feet/inch"
                 name="height"
                 className="size"
                 ref={heightRef}
               />
               <Form.Control
                 type="number"
-                placeholder="Width in feet"
+                placeholder="Width in feet/inch"
                 name="width"
                 className="size"
                 ref={widthRef}
