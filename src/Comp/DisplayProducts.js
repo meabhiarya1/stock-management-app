@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "./DisplayProducts.css";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 
-const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty, searchProducts }) => {
+const DisplayProducts = ({
+  products,
+  increQty,
+  decreQty,
+  editQty,
+  delQty,
+  searchProducts,
+  filterQuantity,
+}) => {
+
   return (
     <>
       {/* search box */}
@@ -16,7 +23,7 @@ const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty, search
               name="text"
               placeholder="Search Here !!!!"
               class="filter-search"
-              onChange={(event)=> searchProducts(event)}
+              onChange={(event) => searchProducts(event)}
             />
           </form>
         </div>
@@ -33,14 +40,15 @@ const DisplayProducts = ({ products, increQty, decreQty, editQty, delQty, search
               <th>Kilo</th>
               <th>Grams</th>
               <th>
-                
-                <DropdownButton id="dropdown-basic-button" title="Quantity" variant="secondary" bg="dark">
-                  <Dropdown.Item href="Out of Stock">
-                    Out of Stock
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Less then 5</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Less then 10</Dropdown.Item>
-                </DropdownButton>
+                <select
+                  onChange={(e)=>filterQuantity(e)}
+                  className="select-options"
+                >
+                  <option value="total">Quantity</option>
+                  <option value="5">Less then 5</option>
+                  <option value="10">Less then 10</option>
+                  <option value="0">Out of Stock</option>
+                </select>
               </th>
               <th>Options</th>
             </tr>
