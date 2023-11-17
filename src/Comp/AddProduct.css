@@ -1,4 +1,4 @@
-.modal-button {
+.modal-button-add {
     margin-top: 1rem;
 }
 
@@ -6,6 +6,9 @@
     margin-left:5px;
     /* align-items: flex-start; */
     text-align: center;
+    font-size: 400;
+    font-weight: 700;
+
 }
 
 .size {
